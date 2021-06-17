@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Stock Journal</title>
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">📘 Stock Journal</h1>
+            <a href="/new" class="btn btn-success float-right">New Entry</a>
+        </div>
+    </div>
+    <div class="container">
+        <% notes.forEach(note=> { %>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <%= note.sn %> (<%= note.ss %>)
+                    </h4>
+                    <p class="card-text mb-0">
+                        Purchase Price: $<%= note.pp %>
+                    </p>
+                    <p class="card-text">
+                        <% var monthNames=[ "January" , "February" , "March" , "April" , "May" , "June" , "July"
+                            , "August" , "September" , "October" , "November" , "December" ]; %>
+                            <% var d=note.pd.getDate();%>
+                                <% var m=monthNames[note.pd.getMonth()]; %>
+                                    <% var y=note.pd.getFullYear() %>
+                                        Purchase Date: <%= d+' '+m+' '+y%>
+                    </p>
+                    <p class="card-text mb-0">
+                        Special Notes: <%= note.description %>
+                    </p>
+                    <form action="/<%= note._id %>?_method=DELETE" method="POST">
+                        <button href="#" class="btn btn-danger float-right m-0">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <%}) %>
+    </div>
+</body>
+
+</html>
